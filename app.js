@@ -6,7 +6,22 @@ const app = express();
 app.use(express.json());
 
 app.get("/todos", (req, res) => {});
-app.post("/create/todo", (req, res) => {});
+
+
+app.post("/create/todo", (req, res) => {
+  const { task, description, deadline, isCompleted, priority } = req.body;
+  const newTodo =new todoModel({ task, description, deadline, isCompleted, priority});
+  newTodo
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+
 app.put("/update/todo", (req, res) => {});
 app.delete("/delete/todo", (req, res) => {});
 
