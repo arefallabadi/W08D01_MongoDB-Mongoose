@@ -5,7 +5,12 @@ const db = require("./db");
 const app = express();
 app.use(express.json());
 
-app.get("/todos", (req, res) => {});
+app.get("/todos", (req, res) => {
+  todoModel.find({})
+  .then((result)=>{
+    res.json(result);
+  }).catch((err)=>{res.json(err)})
+});
 
 
 app.post("/create/todo", (req, res) => {
@@ -19,6 +24,14 @@ app.post("/create/todo", (req, res) => {
     .catch((err) => {
       res.send(err);
     });
+});
+
+
+app.get("/todos/done", (req, res) => {
+  todoModel.find({isCompleted:"yes"})
+  .then((result)=>{
+    res.json(result);
+  }).catch((err)=>{res.json(err)})
 });
 
 
